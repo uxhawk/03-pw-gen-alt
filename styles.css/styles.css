@@ -1,0 +1,30 @@
+body {
+    background: linear-gradient(to right, #cfd9df, #e2ebf0);
+}
+
+input[readonly] {
+    border: 1px solid #ced4da;
+}
+
+#secondary-btn-icon {
+    font-size: 16px;
+}
+
+.card {
+    border: 0;
+    border-radius: 6px;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.form-pw .btn {
+    font-size: 80%;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}

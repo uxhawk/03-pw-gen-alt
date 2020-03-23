@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon.png">
+
+
+
+    <title>Password Generator</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-9 mx-auto">
+                <div class="card flex-row my-5">
+                    <div class="card-body">
+                        <h5 class="text-center">Password Generator</h5>
+                        <form name="passwordGenerator" class="form-pw">
+                            <div class="row">
+                                <div class="col-lg-6 mt-2">
+                                    <label for="pwLength">Password Length</label>
+                                    <div class="input-group mb-3">
+                                        <div id="minus-pwl-stepper" class="input-group-prepend" disabled>
+                                            <span id="minus-pwl" class="input-group-text"><i
+                                                    class="fa fa-minus"></i></span>
+                                        </div>
+                                        <input readonly id="pw_length" name="pw_length" type="number"
+                                            class="text-center form-control-plaintext"
+                                            aria-label="number of special characters" value="9" min="1"
+                                            oninput="manValueChange()">
+                                        <div id="plus-pwl-stepper" class=" input-group-append">
+                                            <span id="plus-pwl" class="input-group-text"><i
+                                                    class="fa fa-plus"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mt-2">
+                                    <label for="specialCharacters">Special Characters</label>
+                                    <div class="input-group mb-3">
+                                        <div id="minus-spChar-stepper" class="input-group-prepend">
+                                            <span id="minus-spChar" class="input-group-text"><i
+                                                    class="fa fa-minus"></i></span>
+                                        </div>
+                                        <input readonly id="spChar" name="specialCharacters" type="number"
+                                            class="text-center form-control-plaintext"
+                                            aria-label="number of special characters" value="4" min="0">
+                                        <div id="plus" class="input-group-append">
+                                            <span id="plus-spChar" class="input-group-text"><i
+                                                    class="fa fa-plus"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+
+
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="upperCaseCheckBox"
+                                            value="upperCase" onclick="toggleUpperCase()" checked>
+                                        <label class="form-check-label" for="upperCaseCheckBox">Uppercase
+                                            Letters</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="lowerCaseCheckBox"
+                                            value="lowerCase" onclick="toggleLowerCase()" checked>
+                                        <label class="form-check-label" for="lowerCaseCheckBox">Lowercase
+                                            Letters</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="numbersCheckBox"
+                                            value="numbers" onclick="toggleNumbers()" checked>
+                                        <label class="form-check-label" for="numbersCaseCheckBox">Numbers</label>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-label-group mt-2">
+                                <!-- **********password input field for strength meter********** -->
+                                <label for="passwordOutput">Password</label>
+                                <input type="text" id="pwOutput" class="form-control" placeholder=""
+                                    name="passwordOutput">
+                            </div>
+                            <p class="mb-1">Password Strength</p>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="progress" style="height: 25px;">
+                                        <div id="password-meter-strength" class="progress-bar progress-bar-striped"
+                                            role="progressbar">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4 mt-2 mx-0">
+                                <div class="col-xs-6 mr-auto mr">Low</div>
+                                <div class="col-xs-6">High</div>
+                            </div>
+
+                            <button id="gen-pw-btn" class="btn btn-lg btn-primary btn-block text-uppercase"
+                                type="button" onClick="generatePW()">Generate
+                                Password</button>
+
+                            <button class="btn btn-lg btn-info btn-block text-uppercase mt-4" type="button"
+                                id="copy-btn" onClick="copyPW()"> Copy
+                                <i id="secondary-btn-icon" class="far fa-copy"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <script src="js/pw-gen.js" crossorigin="anonymous"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+</body>
+
+
+
+</html>
